@@ -1,0 +1,10 @@
+
+
+# Ignore node_modules directory
+node_modules/
+
+# Ignore server.js at the root level
+server.js/
+
+# Ignore MySql_Connection.js in the database directory
+DB_Connection/MySql_Connection.js/

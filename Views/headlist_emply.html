@@ -1,0 +1,87 @@
+{{>header user=user }}
+
+{{>verticalnav }}
+
+<div class="hk-pg-wrapper">
+    <div class="container-xxl">
+
+        <header class="invoice-header">
+            <div class="d-flex align-items-center">
+                <a class="invoiceapp-title link-dark" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <h1>Department Head and Employees</h1>
+                </a>
+            </div>
+        </header>
+        <br>
+
+        <!-- Department Head Table -->
+        <div class="col-sm-12 table-responsive">
+            <table id="table_id" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Department</th>
+                        <th>Department Head Name</th>
+                        <th>Email</th>
+                        <th>NormalPassword</th>
+                        <th>Phone</th>
+                        <th>Designation</th>
+                        <th>Employees</th>
+                        <th>login</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each data}}
+                        <tr>
+                            <td>{{department}}</td>
+                            <td>{{dept_head_name}}</td>
+                            <td>{{email}}</td>
+                            <td>{{normalpassword}}</td>
+                            <td>{{phone}}</td>
+                            <td>{{designation}}</td>
+                            <td>
+                                <a href="/headlogin" class="btn btn-gradient-light">
+                                    headlogin
+                                </a>
+                            </td>
+                            <td>
+                                <!-- Button to show employees -->
+                                <button class="btn btn-info btn-sm" data-bs-toggle="collapse" data-bs-target="#employees-{{this.id}}" aria-expanded="false" aria-controls="employees-{{this.id}}">
+                                    Show Employees
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Employee List (Initially Hidden) -->
+                        <tr class="collapse" id="employees-{{this.id}}">
+                            <td colspan="6">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Designation</th>
+                                            <th>Salary</th>
+                                            <th>Joining Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each employes}}
+                                            <tr>
+                                                <td>{{this.name}}</td>
+                                                <td>{{this.designation}}</td>
+                                                <td>₹{{this.salary}}</td>
+                                                <td>{{this.joiningDate}}</td>
+                                            </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+{{>footer}}

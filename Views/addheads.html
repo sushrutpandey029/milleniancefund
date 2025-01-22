@@ -1,0 +1,122 @@
+{{>header user=user}}
+
+{{>verticalnav}}
+
+<div class="hk-pg-wrapper">
+    <div class="container-xxl">
+        <header class="invoice-header">
+            <div class="d-flex align-items-center">
+                <a class="invoiceapp-title link-dark" data-bs-toggle="dropdown" href="#" role="button"
+                    aria-haspopup="true" aria-expanded="false">
+                    <h1>Add Department Head</h1>
+
+                    {{#if error}}
+                        {{#each error}}
+                            <div class="alert alert-danger" role="alert">
+                                {{this}}
+                            </div>
+                        {{/each}}
+                    {{/if}}
+
+                    {{#if success}}
+                        {{#each success}}
+                            <div class="alert alert-success" role="alert">
+                                {{this}}
+                            </div>
+                        {{/each}}
+                    {{/if}}
+
+                    <script>
+                        window.setTimeout(function () {
+                            $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                                $(this).remove();
+                            });
+                        }, 3000);
+                    </script>
+                </a>
+            </div>
+        </header>
+        <br>
+        <form id="deptForm" action="/saveDeptHead" method="post">
+            <!-- Department -->
+            <div class="mb-3">
+                <label for="department" class="form-label">Department</label>
+                <select class="form-select" id="department" name="department" required>
+                    <option value="" disabled selected>Select Department</option>
+                    <option value="Software Development">Software Development</option>
+                    <option value="Website Development">Website Development</option>
+                    <option value="E-commerce Development">E-commerce Development</option>
+                    <option value="Mobile Development">Mobile Development</option>
+                </select>
+            </div>
+
+            <!-- Department Head Name -->
+            <div class="mb-3">
+                <label for="dept_head_name" class="form-label">Department Head Name</label>
+                <input type="text" class="form-control" id="dept_head_name" name="dept_head_name" required>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+
+            <!-- Phone -->
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="text" class="form-control" id="phone" name="phone" required>
+            </div>
+
+            <!-- Designation -->
+            <div class="mb-3">
+                <label for="designation" class="form-label">Designation</label>
+                <input type="text" class="form-control" id="designation" name="designation" required>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+
+            <!-- Employees Section -->
+            <h3>Employees</h3>
+            <div id="employee-container"></div>
+            <button type="button" class="btn btn-success" onclick="addEmployee()">Add Employee</button>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+        </form>
+    </div>
+</div>
+
+{{>footer}}
+
+<script>
+    let employeeIndex = 0;
+
+    const addEmployee = () => {
+        const container = document.getElementById("employee-container");
+
+        const div = document.createElement("div");
+        div.classList.add("mb-3", "employee-row");
+
+        div.innerHTML = `
+            <div class="d-flex gap-3">
+                <input type="text" class="form-control" name="employes[${employeeIndex}][name]" placeholder="Employee Name" required>
+                <input type="text" class="form-control" name="employes[${employeeIndex}][designation]" placeholder="Designation" required>
+                <input type="number" class="form-control" name="employes[${employeeIndex}][salary]" placeholder="Salary" required>
+                <input type="date" class="form-control" name="employes[${employeeIndex}][joiningDate]" required>
+                <button type="button" class="btn btn-danger" onclick="removeEmployee(this)">Remove</button>
+            </div>
+        `;
+
+        container.appendChild(div);
+        employeeIndex++;  // Increment index for each new employee
+    };
+
+    const removeEmployee = (button) => {
+        button.closest('.employee-row').remove();
+    };
+</script>
